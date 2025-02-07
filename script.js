@@ -2,6 +2,54 @@ const SPREADSHEET_ID = '1ToX4JUdV8Bt9N-eNcbyQMW6AJnxM9mRqTs6X3ilB5rA'; // ID c�
 const API_KEY = 'AIzaSyBQxenT2Q8XNpDv1gNqb1IOJvrl6z1ruNk'; // API Key của bạn
 const RANGE = 'DanhSachCauHoi!A:C'; // Phạm vi cột trong Google Sheets (Số thứ tự, Câu hỏi, Câu trả lời)
 const PASSWORD = '123'; // Mật khẩu dùng để thay đổi dữ liệu
+// Hàm thêm câu hỏi vào Google Sheets
+function addQuestion() {
+  const question = document.getElementById("new-question").value;
+  const answer = document.getElementById("new-answer").value;
+  const password = document.getElementById("password").value;
+
+  // Kiểm tra mật khẩu
+  if (password !== PASSWORD) {
+    alert("Mật khẩu sai!");
+    return;
+  }
+
+  // Kiểm tra các trường nhập liệu
+  if (!question || !answer) {
+    alert("Vui lòng nhập cả câu hỏi và câu trả lời.");
+    return;
+  }
+
+  // Tạo dữ liệu để thêm vào Google Sheets
+  const values = [
+    [question, answer],
+  ];
+
+  // Gửi dữ liệu lên Google Sheets
+  gapi.load('client', () => {
+    gapi.client.init({
+      apiKey: API_KEY,
+      discoveryDocs: ["https://sheets.googleapis.com/$discovery/rest?version=v4"]
+    }).then(() => {
+      // Sử dụng append để thêm dữ liệu vào cuối bảng tính
+      return gapi.client.sheets.spreadsheets.values.append({
+        spreadsheetId: SPREADSHEET_ID,
+        range: RANGE,
+        valueInputOption: "RAW",
+        resource: {
+          values: values
+        }
+      });
+    }).then(response => {
+      // Cập nhật lại bảng sau khi thêm câu hỏi
+      alert("Câu hỏi đã được thêm thành công!");
+      loadDataFromGoogleSheets(); // Tải lại dữ liệu từ Google Sheets
+    }).catch(error => {
+      console.error("Error adding question:", error);
+      alert("Đã có lỗi xảy ra khi thêm câu hỏi.");
+    });
+  });
+}
 
 // Hàm tải dữ liệu từ Google Sheets
 function loadDataFromGoogleSheets() {
