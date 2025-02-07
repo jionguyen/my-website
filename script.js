@@ -1,6 +1,6 @@
 const SPREADSHEET_ID = '1ToX4JUdV8Bt9N-eNcbyQMW6AJnxM9mRqTs6X3ilB5rA'; // ID của Google Sheets
 const CLIENT_ID = '1076064063621-ebh970ll77hqv47591cjilvdhds8olqh.apps.googleusercontent.com'; // Client ID OAuth2
-const API_KEY = 'AIzaSyBQxenT2Q8XNpDv1gNqb1IOJvrl6z1ruNk'; // Thay bằng API Key thực tế của bạn
+const API_KEY = 'AIzaSyBQxenT2Q8XNpDv1gNqb1IOJvrl6z1ruNk'; // API Key của bạn
 const SCOPE = 'https://www.googleapis.com/auth/spreadsheets'; // Quyền truy cập vào Google Sheets
 const RANGE = 'DanhSachCauHoi!A:C'; // Phạm vi cột trong Google Sheets (Số thứ tự, Câu hỏi, Câu trả lời)
 const PASSWORD = '123'; // Mật khẩu dùng để thay đổi dữ liệu
