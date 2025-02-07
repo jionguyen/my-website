@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Danh Sách Câu Hỏi</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <h1>Danh Sách Câu Hỏi</h1>
+    
+    <input type="text" id="search" placeholder="Tìm kiếm câu hỏi..." onkeyup="searchQuestion()">
+    
+    <table>
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Câu Hỏi</th>
+            </tr>
+        </thead>
+        <tbody id="questionList">
+        </tbody>
+    </table>
+
+    <script src="script.js"></script>
+</body>
+</html>
