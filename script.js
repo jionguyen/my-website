@@ -25,11 +25,10 @@ function displayQuestions(questionList) {
     let list = document.getElementById("questionList");
     list.innerHTML = ""; // Xóa danh sách cũ
 
-    questionList.slice(1).forEach((item, index) => { // Bỏ qua dòng tiêu đề
-        let li = document.createElement("li");
-        li.innerHTML = `<b>Q:</b> ${item[1]} <br> <b>A:</b> ${item[2]} 
-                        <button onclick="deleteQuestion(${index})">Xóa</button>`;
-        list.appendChild(li);
+    questionList.slice(1).forEach((item, index) => {
+        let tr = document.createElement("tr");
+        tr.innerHTML = `<td>${index + 1}</td><td><b>Q:</b> ${item[0]} <br> <b>A:</b> ${item[1]}</td>`;
+        list.appendChild(tr);
     });
 }
 
