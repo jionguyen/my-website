@@ -37,3 +37,29 @@ tr:nth-child(even) {
 tr:hover {
   background-color: #ddd;
 }
+
+button {
+  background-color: #4CAF50;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  cursor: pointer;
+  border-radius: 5px;
+}
+
+button:hover {
+  background-color: #45a049;
+}
+
+input[type="text"] {
+  width: 100%;
+  padding: 8px;
+  margin: 8px 0;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+}
+
+select {
+  padding: 8px;
+  margin: 8px 0;
+}
