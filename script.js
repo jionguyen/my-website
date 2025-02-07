@@ -1,6 +1,6 @@
-const SPREADSHEET_ID = '1suU9YQBdiI95xz8tkVcNXS0lrkMrDnPQrVPXWtNdbJg'; // ID của Google Sheets
+const SPREADSHEET_ID = '1ToX4JUdV8Bt9N-eNcbyQMW6AJnxM9mRqTs6X3ilB5rA'; // ID của Google Sheets
 const API_KEY = 'AIzaSyBQxenT2Q8XNpDv1gNqb1IOJvrl6z1ruNk'; // API Key của bạn
-const RANGE = 'Sheet1!A:C'; // Phạm vi cột trong Google Sheets (Số thứ tự, Câu hỏi, Câu trả lời)
+const RANGE = 'DanhSachCauHoi!A:C'; // Phạm vi cột trong Google Sheets (Số thứ tự, Câu hỏi, Câu trả lời)
 
 // Hàm tải dữ liệu từ Google Sheets
 function loadDataFromGoogleSheets() {
