@@ -1,7 +1,7 @@
 const SPREADSHEET_ID = '1ToX4JUdV8Bt9N-eNcbyQMW6AJnxM9mRqTs6X3ilB5rA'; // ID của Google Sheets
 const API_KEY = 'AIzaSyBQxenT2Q8XNpDv1gNqb1IOJvrl6z1ruNk'; // API Key của bạn
 const RANGE = 'DanhSachCauHoi!A:C'; // Phạm vi cột trong Google Sheets (Số thứ tự, Câu hỏi, Câu trả lời)
-const PASSWORD = '123'; // Mật khẩu yêu cầu
+const PASSWORD = '123'; // Mật khẩu dùng để thay đổi dữ liệu
 
 // Hàm tải dữ liệu từ Google Sheets
 function loadDataFromGoogleSheets() {
@@ -68,37 +68,46 @@ function filterData() {
   });
 }
 
-// Hàm thêm câu hỏi mới
+// Hàm thêm câu hỏi vào Google Sheets
 function addQuestion() {
-  const newQuestion = document.getElementById("new-question").value;
-  const newAnswer = document.getElementById("new-answer").value;
+  const question = document.getElementById("new-question").value;
+  const answer = document.getElementById("new-answer").value;
   const password = document.getElementById("password").value;
 
-  // Kiểm tra mật khẩu
   if (password !== PASSWORD) {
-    alert("Mật khẩu không đúng!");
+    alert("Mật khẩu sai!");
     return;
   }
 
-  if (newQuestion && newAnswer) {
-    // Tạo yêu cầu gửi lên Google Sheets
-    const newRow = [[newQuestion, newAnswer]];
-    const params = {
-      spreadsheetId: SPREADSHEET_ID,
-      range: RANGE,
-      valueInputOption: 'RAW',
-    };
-    const valueRange = {
-      values: newRow
-    };
+  if (!question || !answer) {
+    alert("Vui lòng nhập cả câu hỏi và câu trả lời.");
+    return;
+  }
 
-    gapi.client.sheets.spreadsheets.values.append(params, valueRange).then(response => {
-      alert("Câu hỏi đã được thêm!");
+  // Tạo dữ liệu để thêm vào Google Sheets
+  const values = [
+    [question, answer],
+  ];
+
+  // Gửi dữ liệu lên Google Sheets
+  gapi.load('client', () => {
+    gapi.client.init({
+      apiKey: API_KEY,
+      discoveryDocs: ["https://sheets.googleapis.com/$discovery/rest?version=v4"]
+    }).then(() => {
+      return gapi.client.sheets.spreadsheets.values.append({
+        spreadsheetId: SPREADSHEET_ID,
+        range: RANGE,
+        valueInputOption: "RAW",
+        resource: {
+          values: values
+        }
+      });
+    }).then(response => {
+      alert("Câu hỏi đã được thêm thành công!");
       loadDataFromGoogleSheets(); // Tải lại dữ liệu từ Google Sheets
     }).catch(error => {
       console.error("Error adding question:", error);
     });
-  } else {
-    alert("Vui lòng nhập đầy đủ câu hỏi và câu trả lời.");
-  }
+  });
 }
