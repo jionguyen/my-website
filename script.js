@@ -1,18 +1,33 @@
 const sheetId = "1ToX4JUdV8Bt9N-eNcbyQMW6AJnxM9mRqTs6X3ilB5rA"; // ID Google Sheets của bạn
 const apiKey = "AIzaSyBQxenT2Q8XNpDv1gNqb1IOJvrl6z1ruNk"; // API Key của bạn
-const sheetName = "DanhSachCauHoi"; // Đổi tên thành sheet bạn đặt trong Google Sheets
+const sheetName = "DanhSachCauHoi"; // Tên sheet trong Google Sheets
 
-// Mảng lưu câu hỏi vào localStorage
-let questions = JSON.parse(localStorage.getItem("questions")) || [];
+// Hàm lấy danh sách câu hỏi từ Google Sheets
+async function fetchQuestions() {
+    const url = `https://sheets.googleapis.com/v4/spreadsheets/${sheetId}/values/${sheetName}!A:C?key=${apiKey}`;
+    
+    try {
+        const response = await fetch(url);
+        const data = await response.json();
 
-// Hàm hiển thị câu hỏi lên trang
-function displayQuestions() {
+        if (data.values) {
+            displayQuestions(data.values);
+        } else {
+            console.error("Không lấy được dữ liệu từ Google Sheets.");
+        }
+    } catch (error) {
+        console.error("Lỗi kết nối đến Google Sheets:", error);
+    }
+}
+
+// Hàm hiển thị danh sách câu hỏi lên trang web
+function displayQuestions(questionList) {
     let list = document.getElementById("questionList");
     list.innerHTML = ""; // Xóa danh sách cũ
 
-    questions.forEach((item, index) => {
+    questionList.slice(1).forEach((item, index) => { // Bỏ qua dòng tiêu đề
         let li = document.createElement("li");
-        li.innerHTML = `<b>Q:</b> ${item.question} <br> <b>A:</b> ${item.answer} 
+        li.innerHTML = `<b>Q:</b> ${item[1]} <br> <b>A:</b> ${item[2]} 
                         <button onclick="deleteQuestion(${index})">Xóa</button>`;
         list.appendChild(li);
     });
@@ -20,7 +35,7 @@ function displayQuestions() {
 
 // Hàm lưu câu hỏi vào Google Sheets
 async function saveQuestionToGoogleSheets(question, answer) {
-    const url = `https://sheets.googleapis.com/v4/spreadsheets/${sheetId}/values/DanhSachCauHoi!A:C:append?valueInputOption=USER_ENTERED&key=${apiKey}`;
+    const url = `https://sheets.googleapis.com/v4/spreadsheets/${sheetId}/values/${sheetName}!A:C:append?valueInputOption=USER_ENTERED&key=${apiKey}`;
 
     const data = {
         "values": [[new Date().toLocaleString(), question, answer]]
@@ -35,6 +50,7 @@ async function saveQuestionToGoogleSheets(question, answer) {
 
         if (response.ok) {
             alert("✅ Câu hỏi đã được lưu vào Google Sheets!");
+            fetchQuestions(); // Cập nhật danh sách sau khi thêm mới
         } else {
             alert("❌ Lỗi khi lưu! Kiểm tra lại API Key và quyền truy cập.");
         }
@@ -49,21 +65,13 @@ document.getElementById("submitBtn").addEventListener("click", function () {
     const answer = document.getElementById("answer").value.trim();
 
     if (question && answer) {
-        saveQuestionToGoogleSheets(question, answer); // Lưu vào Google Sheets
-        questions.push({ question, answer }); // Lưu vào localStorage
-        localStorage.setItem("questions", JSON.stringify(questions));
-        displayQuestions(); // Cập nhật danh sách
+        saveQuestionToGoogleSheets(question, answer);
+        document.getElementById("question").value = "";
+        document.getElementById("answer").value = "";
     } else {
         alert("⚠️ Vui lòng nhập đầy đủ câu hỏi và câu trả lời.");
     }
 });
 
-// Hàm xóa câu hỏi
-function deleteQuestion(index) {
-    questions.splice(index, 1);
-    localStorage.setItem("questions", JSON.stringify(questions));
-    displayQuestions();
-}
-
-// Hiển thị câu hỏi khi tải trang
-window.onload = displayQuestions;
+// Hiển thị danh sách khi tải trang
+window.onload = fetchQuestions;
