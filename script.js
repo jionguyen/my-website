@@ -27,10 +27,11 @@ function addQuestion() {
   ];
 
   // Gửi dữ liệu lên Google Sheets
-  gapi.load('client', () => {
+  gapi.load('client:auth2', () => {
     gapi.client.init({
       apiKey: API_KEY,
-      discoveryDocs: ["https://sheets.googleapis.com/$discovery/rest?version=v4"]
+      discoveryDocs: ["https://sheets.googleapis.com/$discovery/rest?version=v4"],
+      scopes: "https://www.googleapis.com/auth/spreadsheets",  // Thêm phạm vi
     }).then(() => {
       return gapi.client.sheets.spreadsheets.values.append({
         spreadsheetId: SPREADSHEET_ID,
@@ -52,10 +53,11 @@ function addQuestion() {
 
 // Hàm tải dữ liệu từ Google Sheets
 function loadDataFromGoogleSheets() {
-  gapi.load('client', () => {
+  gapi.load('client:auth2', () => {
     gapi.client.init({
       apiKey: API_KEY,
-      discoveryDocs: ["https://sheets.googleapis.com/$discovery/rest?version=v4"]
+      discoveryDocs: ["https://sheets.googleapis.com/$discovery/rest?version=v4"],
+      scopes: "https://www.googleapis.com/auth/spreadsheets",  // Thêm phạm vi
     }).then(() => {
       return gapi.client.sheets.spreadsheets.values.get({
         spreadsheetId: SPREADSHEET_ID,
