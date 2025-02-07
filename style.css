@@ -1,3 +1,18 @@
+/* CSS để tạo giao diện đẹp hơn */
+body {
+  font-family: Arial, sans-serif;
+  background-color: #f4f4f9;
+  margin: 0;
+  padding: 0;
+}
+
+header {
+  background-color: #4CAF50;
+  color: white;
+  padding: 20px;
+  text-align: center;
+}
+
 .add-question-form {
   margin: 20px auto;
   width: 80%;
@@ -7,7 +22,8 @@
   border-radius: 5px;
 }
 
-.add-question-form input {
+.add-question-form input,
+.add-question-form textarea {
   width: 100%;
   padding: 10px;
   margin: 8px 0;
@@ -48,4 +64,29 @@ button {
 
 button:hover {
   background-color: #45a049;
+}
+
+/* Bảng dữ liệu */
+table {
+  width: 80%;
+  margin: 20px auto;
+  border-collapse: collapse;
+}
+
+table, th, td {
+  border: 1px solid #ddd;
+}
+
+th, td {
+  padding: 10px;
+  text-align: left;
+}
+
+th {
+  background-color: #4CAF50;
+  color: white;
+}
+
+td {
+  background-color: #f9f9f9;
 }

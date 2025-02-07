@@ -13,11 +13,11 @@
     <h1>Danh Sách Câu Hỏi và Câu Trả Lời</h1>
   </header>
 
-  <!-- Thêm thanh tìm kiếm ở đây -->
+  <!-- Thanh tìm kiếm -->
   <input type="text" id="search-input" placeholder="Tìm kiếm câu hỏi..." onkeyup="filterData()">
 
   <!-- Form thêm câu hỏi -->
-  <div>
+  <div class="add-question-form">
     <h3>Thêm Câu Hỏi Mới</h3>
     <input type="text" id="new-question" placeholder="Nhập câu hỏi..." required />
     <textarea id="new-answer" placeholder="Nhập câu trả lời..." required></textarea>
@@ -25,6 +25,7 @@
     <button onclick="addQuestion()">Thêm Câu Hỏi</button>
   </div>
 
+  <!-- Bảng hiển thị dữ liệu -->
   <table id="data-table">
     <thead>
       <tr>

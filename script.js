@@ -89,9 +89,9 @@ function displayData(data) {
   data.forEach((row, index) => {
     const tr = document.createElement("tr");
     tr.innerHTML = `
+      <td>${index + 1}</td>
       <td>${row[0]}</td>
       <td>${row[1]}</td>
-      <td>${row[2]}</td>
     `;
     tableBody.appendChild(tr);
   });
