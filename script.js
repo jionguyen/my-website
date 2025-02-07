@@ -20,7 +20,7 @@ function displayQuestions() {
 
 // Hàm lưu câu hỏi vào Google Sheets
 async function saveQuestionToGoogleSheets(question, answer) {
-    const url = `https://sheets.googleapis.com/v4/spreadsheets/${sheetId}/values/DanhSachCauHoi!A:C:append?valueInputOption=RAW&key=${apiKey}`;
+    const url = `https://sheets.googleapis.com/v4/spreadsheets/${sheetId}/values/DanhSachCauHoi!A:C:append?valueInputOption=USER_ENTERED&key=${apiKey}`;
 
     const data = {
         "values": [[new Date().toLocaleString(), question, answer]]
