@@ -16,6 +16,14 @@
   <!-- Thêm thanh tìm kiếm ở đây -->
   <input type="text" id="search-input" placeholder="Tìm kiếm câu hỏi..." onkeyup="filterData()">
 
+  <!-- Form thêm câu hỏi và câu trả lời -->
+  <div class="add-question-form">
+    <input type="text" id="new-question" placeholder="Nhập câu hỏi mới" required>
+    <input type="text" id="new-answer" placeholder="Nhập câu trả lời" required>
+    <input type="password" id="password" placeholder="Nhập mật khẩu" required>
+    <button onclick="addQuestion()">Thêm câu hỏi</button>
+  </div>
+
   <table id="data-table">
     <thead>
       <tr>
@@ -33,4 +41,3 @@
 
 </body>
 </html>
-
